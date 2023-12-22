@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+
+  dbms:
+    image: mariadb
+    container_name: mysql-api
+    ports:
+      - '3306:3306'
+    environment: 
+      - MYSQL_ALLOW_EMPTY_PASSWORD=false
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_PASSWORD=rootpassword
+      - MYSQL_USER=admin
+    volumes:
+      - ./sql/dbms-data:/var/lib/mysql
+      - ./sql/mariadb.cnf:/etc/mysql/mariadb.cnf
+    command: 
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
+    networks:
+      - net-api
+
+  ruby-api:
+    build: 
+      context: .
+      dockerfile: api/Dockerfile
+    command: /bin/bash -c "while sleep 1000 ; do :; done"
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/home/dev:cached
+    depends_on:
+      - dbms
+    networks:
+      - net-api
+
+networks:
+  net-api:
+    driver: bridge
+    name: net-api
