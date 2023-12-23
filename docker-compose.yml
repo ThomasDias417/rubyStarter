@@ -11,7 +11,7 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=false
       - MYSQL_ROOT_PASSWORD=rootpassword
       - MYSQL_PASSWORD=rootpassword
-      - MYSQL_USER=admin
+      - MYSQL_USER=root
     volumes:
       - ./sql/dbms-data:/var/lib/mysql
       - ./sql/mariadb.cnf:/etc/mysql/mariadb.cnf
