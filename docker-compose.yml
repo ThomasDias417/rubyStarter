@@ -2,21 +2,21 @@ version: '3.8'
 
 services:
 
-ruby-api:
-    environment: 
-      - DATABASE_URL=postgresql://postgres:-5DAc6ce661Bf*d-62a2FgdE2-2E-B45@roundhouse.proxy.rlwy.net:48415/railway
-
-    build: 
-      context: .
-      dockerfile: api/Dockerfile
-    command: /bin/bash -c "while sleep 1000 ; do :; done"
-    ports:
-      - '3000:3000'
-    volumes:
-      - ./:/home/dev:cached
-
-    networks:
-      - net-api
+    ruby-api:
+        environment: 
+          - DATABASE_URL=postgresql://postgres:-5DAc6ce661Bf*d-62a2FgdE2-2E-B45@roundhouse.proxy.rlwy.net:48415/railway
+    
+        build: 
+          context: .
+          dockerfile: api/Dockerfile
+        command: /bin/bash -c "while sleep 1000 ; do :; done"
+        ports:
+          - '3000:3000'
+        volumes:
+          - ./:/home/dev:cached
+    
+        networks:
+          - net-api
 
 networks:
   net-api:
